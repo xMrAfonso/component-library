@@ -10,7 +10,7 @@ export default function Navbar() {
     <nav className="bg-white shadow-md sticky top-0 z-50">
       <div className=" ">
         <div className="flex justify-between h-16">
-          {/* Logo */}
+          
           <div className="flex items-center">
             <Link href="/" className="text-xl font-bold text-indigo-600">
               MyLibrary
