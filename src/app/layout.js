@@ -1,5 +1,6 @@
 import Navbar from './components/Navbar'
 import './globals.css'
+import { ThemeProvider } from './context/ThemeContext'
 
 export const metadata = {
   title: 'Open Source Component Library',
@@ -9,14 +10,18 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-gray-50 text-gray-900">
-        <div className="py-6">
-          <Navbar />
-          <main
-            className='max-w-7xl mx-auto'
-          >{children}</main>
-          <footer className="mt-12 text-xs text-gray-500">Made for Hacktoberfest</footer>
-        </div>
+      <body className="min-h-screen bg-theme-background text-theme-primary">
+        <ThemeProvider>
+          <div className="py-6">
+            <Navbar />
+            <main className='max-w-7xl mx-auto'>
+              {children}
+            </main>
+            <footer className="mt-12 text-xs text-theme-muted text-center">
+              Made for Hacktoberfest
+            </footer>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   )
