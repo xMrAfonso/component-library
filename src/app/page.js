@@ -10,6 +10,7 @@ import ImageCard from '../components/cards/ImageCard'
 import FeatureCard from '../components/cards/FeatureCard'
 import ProfileCard from '../components/cards/ProfileCard'
 import PricingCard from '../components/cards/PricingCard'
+import DataCard from '@/components/cards/DataCard'
 
 export default function Page() {
   return (
@@ -33,6 +34,7 @@ export default function Page() {
           <FeatureCard title="Feature Card" description="Highlight features and benefits." />
           <ProfileCard name="Alex Johnson" role="Product Designer" />
           <PricingCard plan="Pro" price="$9/mo" features={["10 projects","Priority support","Unlimited users"]} />
+           <DataCard title="Active Projects" value="27" icon="📂" trend={8} />
         </div>
       </section>
     </div>
