@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom utilities */
+.bg-gradient-card {
+  background-image: linear-gradient(135deg, rgba(99,102,241,0.06), rgba(56,189,248,0.04));
+}
