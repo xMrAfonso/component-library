@@ -17,6 +17,8 @@ import LinkButton from '@/components/buttons/LinkButton'
 import LoadingButton from '@/components/buttons/LoadingButton'
 import RoundButton from '@/components/buttons/RoundButton'
 import SuccessButton from '@/components/buttons/SuccessButton'
+import AlertCard from '@/components/cards/AlertCard'
+import ProductCard from '@/components/cards/ProductCard'
 
 export default function Page() {
   return (
@@ -47,6 +49,8 @@ export default function Page() {
           <ProfileCard name="Alex Johnson" role="Product Designer" />
           <PricingCard plan="Pro" price="$9/mo" features={["10 projects", "Priority support", "Unlimited users"]} />
           <DataCard title="Active Projects" value="27" icon="📂" trend={8} />
+          <AlertCard title="Server Alert" description="CPU usage is at 95%" type="warning" />
+          <ProductCard name="Wireless Headphones" price="$99" image="/product1.jpg" />
         </div>
       </section>
     </div>
