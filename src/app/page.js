@@ -15,7 +15,7 @@ import DataCard from '@/components/cards/DataCard'
 export default function Page() {
   return (
     <div className="space-y-12">
-      <section>
+      <section className='mt-12'>
         <h2 className="text-2xl font-semibold mb-4">Buttons</h2>
         <div className="flex gap-4 flex-wrap">
           <PrimaryButton>Primary</PrimaryButton>
@@ -33,8 +33,8 @@ export default function Page() {
           <ImageCard title="Image Card" description="Card with SVG image." />
           <FeatureCard title="Feature Card" description="Highlight features and benefits." />
           <ProfileCard name="Alex Johnson" role="Product Designer" />
-          <PricingCard plan="Pro" price="$9/mo" features={["10 projects","Priority support","Unlimited users"]} />
-           <DataCard title="Active Projects" value="27" icon="📂" trend={8} />
+          <PricingCard plan="Pro" price="$9/mo" features={["10 projects", "Priority support", "Unlimited users"]} />
+          <DataCard title="Active Projects" value="27" icon="📂" trend={8} />
         </div>
       </section>
     </div>
