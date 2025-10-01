@@ -1,4 +1,6 @@
+"use client";
 import React from 'react'
+import ThemeToggleButton from './components/ThemeToggleButton'
 import PrimaryButton from '../components/buttons/PrimaryButton'
 import SecondaryButton from '../components/buttons/SecondaryButton'
 import GhostButton from '../components/buttons/GhostButton'
@@ -19,11 +21,13 @@ import RoundButton from '@/components/buttons/RoundButton'
 import SuccessButton from '@/components/buttons/SuccessButton'
 
 export default function Page() {
+  const [isDark, setIsDark] = React.useState(false);
+  const handleThemeToggle = () => setIsDark((prev) => !prev);
   return (
     <div className="space-y-12">
       <section className='mt-12'>
         <h2 className="text-2xl font-semibold mb-4">Buttons</h2>
-        <div className="flex gap-4 flex-wrap">
+        <div className="flex gap-4 flex-wrap items-center">
           <PrimaryButton>Primary</PrimaryButton>
           <SecondaryButton>Secondary</SecondaryButton>
           <GhostButton>Ghost</GhostButton>
@@ -35,6 +39,7 @@ export default function Page() {
           <SuccessButton>Success</SuccessButton>
           <IconButton aria-label="star">★</IconButton>
           <PillButton>Subscribe</PillButton>
+          <ThemeToggleButton onClick={handleThemeToggle} isDark={isDark} />
         </div>
       </section>
 
