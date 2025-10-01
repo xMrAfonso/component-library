@@ -11,16 +11,28 @@ import FeatureCard from '../components/cards/FeatureCard'
 import ProfileCard from '../components/cards/ProfileCard'
 import PricingCard from '../components/cards/PricingCard'
 import DataCard from '@/components/cards/DataCard'
+import OutlineButton from '@/components/buttons/OutlineButton'
+import DangerButton from '@/components/buttons/DangerButton'
+import LinkButton from '@/components/buttons/LinkButton'
+import LoadingButton from '@/components/buttons/LoadingButton'
+import RoundButton from '@/components/buttons/RoundButton'
+import SuccessButton from '@/components/buttons/SuccessButton'
 
 export default function Page() {
   return (
     <div className="space-y-12">
-      <section>
+      <section className='mt-12'>
         <h2 className="text-2xl font-semibold mb-4">Buttons</h2>
         <div className="flex gap-4 flex-wrap">
           <PrimaryButton>Primary</PrimaryButton>
           <SecondaryButton>Secondary</SecondaryButton>
           <GhostButton>Ghost</GhostButton>
+          <OutlineButton>Outline</OutlineButton>
+          <DangerButton>Danger</DangerButton>
+          <LinkButton>Link</LinkButton>
+          <LoadingButton>Loading</LoadingButton>
+          <RoundButton>Rounded</RoundButton>
+          <SuccessButton>Success</SuccessButton>
           <IconButton aria-label="star">★</IconButton>
           <PillButton>Subscribe</PillButton>
         </div>
@@ -33,8 +45,8 @@ export default function Page() {
           <ImageCard title="Image Card" description="Card with SVG image." />
           <FeatureCard title="Feature Card" description="Highlight features and benefits." />
           <ProfileCard name="Alex Johnson" role="Product Designer" />
-          <PricingCard plan="Pro" price="$9/mo" features={["10 projects","Priority support","Unlimited users"]} />
-           <DataCard title="Active Projects" value="27" icon="📂" trend={8} />
+          <PricingCard plan="Pro" price="$9/mo" features={["10 projects", "Priority support", "Unlimited users"]} />
+          <DataCard title="Active Projects" value="27" icon="📂" trend={8} />
         </div>
       </section>
     </div>
