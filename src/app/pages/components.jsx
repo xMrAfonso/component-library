@@ -2,10 +2,14 @@ import Head from 'next/head';
 import Navbar from '@/src/components/Navbar/Navbar';
 import Card from '@/src/components/Card/Card';
 import Button from '@/src/components/Button/Button';
+import SuccessButton from '@/src/components/buttons/SuccessButton';
+import ThemeToggleButton from '@/src/components/buttons/ThemeToggleButton';
 import useToggle from '@/src/hooks/useToggle';
 
 export default function ComponentsPage() {
   const { on, toggle } = useToggle();
+  const [isDark, setIsDark] = React.useState(false);
+  const handleThemeToggle = () => setIsDark((prev) => !prev);
 
   return (
     <>
@@ -17,12 +21,14 @@ export default function ComponentsPage() {
         <h1>Components</h1>
         <section>
           <h2>Button</h2>
-          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
             <Button>Primary</Button>
             <Button variant="secondary">Secondary</Button>
             <Button variant="ghost">Ghost</Button>
             <Button size="sm">Small</Button>
             <Button size="lg">Large</Button>
+            <SuccessButton>Subscribe</SuccessButton>
+            <ThemeToggleButton onClick={handleThemeToggle} isDark={isDark} />
           </div>
         </section>
 
