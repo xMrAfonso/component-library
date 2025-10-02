@@ -19,8 +19,13 @@ import LinkButton from '@/components/buttons/LinkButton'
 import LoadingButton from '@/components/buttons/LoadingButton'
 import RoundButton from '@/components/buttons/RoundButton'
 import SuccessButton from '@/components/buttons/SuccessButton'
+
+import AlertCard from '@/components/cards/AlertCard'
+import ProductCard from '@/components/cards/ProductCard'
+
 import StatsCard from '@/components/cards/StatsCard'
 import TestimonialCard from '@/components/cards/TestimonialCard'
+
 
 export default function Page() {
   const [isDark, setIsDark] = React.useState(false);
@@ -55,7 +60,12 @@ export default function Page() {
           <PricingCard plan="Pro" price="$9/mo" features={["10 projects", "Priority support", "Unlimited users"]} />
           <TestimonialCard name="Jane Doe" role="CEO" quote="This product is amazing!" />
           <DataCard title="Active Projects" value="27" icon="📂" trend={8} />
+
+          <AlertCard title="Server Alert" description="CPU usage is at 95%" type="warning" />
+          <ProductCard name="Wireless Headphones" price="$99" image="/product1.jpg" />
+
           <StatsCard title="Revenue" value="$12K" icon="💰" trend={12} />
+
         </div>
       </section>
     </div>
