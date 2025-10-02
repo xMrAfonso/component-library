@@ -3,7 +3,7 @@ import React from "react";
 const OutlineButton = ({ children, ...props }) => {
     return (
         <button
-            className="px-4 py-2 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition-colors"
+            className="px-4 py-2 rounded-lg border-2 border-theme-primary text-theme-primary hover:bg-theme-primary hover:text-white focus-theme transition-all duration-300 transform hover:scale-105 active:scale-95"
             {...props}
         >
             {children}

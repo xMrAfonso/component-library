@@ -3,13 +3,13 @@ import React from "react";
 const LoadingButton = ({ children, isLoading = true, ...props }) => {
     return (
         <button
-            className="px-4 py-2 rounded-lg bg-yellow-200 text-black flex items-center justify-center gap-2 hover:bg-primary-dark transition-colors"
+            className="px-4 py-2 rounded-lg bg-amber-400 dark:bg-amber-500 text-gray-900 dark:text-gray-100 flex items-center justify-center gap-2 hover:bg-amber-500 dark:hover:bg-amber-600 focus-theme shadow-theme-sm transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={isLoading}
             {...props}
         >
             {isLoading && (
                 <svg
-                    className="animate-spin h-4 w-4 text-black"
+                    className="animate-spin h-4 w-4 text-gray-900 dark:text-gray-100"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
