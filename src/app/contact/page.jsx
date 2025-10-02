@@ -1,15 +1,48 @@
-'use client';
 
-import { useState } from 'react';
-import Link from 'next/link';
+"use client"
+import React, { useState } from 'react';
+import { Mail, Phone, MapPin, Send, Github, Twitter, Linkedin } from 'lucide-react';
+
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    subject: '',
     message: ''
   });
-  const [formStatus, setFormStatus] = useState(null);
+  
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState('');
+
+  const validateForm = () => {
+    const newErrors = {};
+    
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
+    }
+    
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+    
+    if (!formData.subject.trim()) {
+      newErrors.subject = 'Subject is required';
+    }
+    
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = 'Message must be at least 10 characters long';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,47 +50,73 @@ export default function ContactPage() {
       ...prev,
       [name]: value
     }));
+    
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Email functionality - opens default email client
-    const subject = encodeURIComponent(`Contact from ${formData.name}`);
-    const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage: ${formData.message}`);
-    window.location.href = `mailto:gps.96169@gmail.com?subject=${subject}&body=${body}`;
+    if (!validateForm()) {
+      return;
+    }
     
-    setFormStatus('success');
-    setFormData({ name: '', email: '', message: '' });
+    setIsSubmitting(true);
+    setSubmitStatus('');
+    
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (error) {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const whatsappUrl = 'https://wa.me/918957818597';
-
   return (
-    <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-      <div className="text-center">
-        <h1 className="text-3xl font-extrabold text-blue-700 dark:text-blue-400 sm:text-4xl">
-          Contact Us
-        </h1>
-        <p className="mt-4 text-lg text-black-700 dark:text-black-200">
-          Have questions or feedback? We'd love to hear from you.
+    <div className="max-w-6xl mx-auto px-4 py-12">
+      {/* Header */}
+      <section className="text-center mb-16">
+        <h1 className="text-4xl font-bold text-gray-900 mb-6">Get in Touch</h1>
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          Have questions about our component library? Want to contribute or report a bug? 
+          We'd love to hear from you!
         </p>
-      </div>
+      </section>
 
-      <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2">
-        <div className="bg-white dark:bg-gray-800 shadow overflow-hidden rounded-lg p-6">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Send us a message</h2>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        {/* Contact Form */}
+        <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h2>
           
-          {formStatus === 'success' && (
-            <div className="mb-4 p-3 bg-green-100 text-green-700 rounded">
-              Your message has been sent successfully!
+          {submitStatus === 'success' && (
+            <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+              <p className="text-green-800 font-medium">Thank you for your message! We'll get back to you soon.</p>
             </div>
           )}
           
-          <form onSubmit={handleSubmit} className="space-y-4">
+          {submitStatus === 'error' && (
+            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+              <p className="text-red-800 font-medium">Sorry, there was an error sending your message. Please try again.</p>
+            </div>
+          )}
+          
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Name Field */}
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Name
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                Full Name *
+
               </label>
               <input
                 type="text"
@@ -65,14 +124,20 @@ export default function ContactPage() {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                required
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+
+                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
+                  errors.name ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                }`}
+                placeholder="Enter your full name"
               />
+              {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
             </div>
-            
+
+            {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Email
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                Email Address *
+
               </label>
               <input
                 type="email"
@@ -80,74 +145,199 @@ export default function ContactPage() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                required
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+
+                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
+                  errors.email ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                }`}
+                placeholder="your.email@example.com"
               />
+              {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
             </div>
-            
+
+            {/* Subject Field */}
             <div>
-              <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Message
+              <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+                Subject *
+              </label>
+              <select
+                id="subject"
+                name="subject"
+                value={formData.subject}
+                onChange={handleChange}
+                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
+                  errors.subject ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                }`}
+              >
+                <option value="">Select a subject</option>
+                <option value="bug-report">Bug Report</option>
+                <option value="feature-request">Feature Request</option>
+                <option value="documentation">Documentation</option>
+                <option value="contribution">Contribution</option>
+                <option value="support">General Support</option>
+                <option value="other">Other</option>
+              </select>
+              {errors.subject && <p className="mt-1 text-sm text-red-600">{errors.subject}</p>}
+            </div>
+
+            {/* Message Field */}
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                Message *
+
               </label>
               <textarea
                 id="message"
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
-                required
-                rows="4"
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-              ></textarea>
+                rows={5}
+                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-vertical ${
+                  errors.message ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                }`}
+                placeholder="Tell us how we can help you..."
+              />
+              {errors.message && <p className="mt-1 text-sm text-red-600">{errors.message}</p>}
             </div>
-            
-            <div>
-              <button
-                type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                Send Email
-              </button>
-            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+            >
+              {isSubmitting ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
+                  Sending...
+                </>
+              ) : (
+                <>
+                  <Send className="w-4 h-4" />
+                  Send Message
+                </>
+              )}
+            </button>
           </form>
         </div>
-        
-        <div className="bg-white dark:bg-gray-800 shadow overflow-hidden rounded-lg p-6">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Contact Information</h2>
-          
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white">Email</h3>
-              <p className="mt-2 text-base text-gray-500 dark:text-gray-300">
+
+        {/* Contact Information */}
+        <div className="space-y-8">
+          {/* Contact Details */}
+          <div className="bg-blue-50 p-8 rounded-2xl">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Contact Information</h2>
+            <div className="space-y-4">
+              <div className="flex items-start gap-4">
                 <a 
-                  href="mailto:gps.96169@gmail.com" 
-                  className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
+                  href="mailto:gps.96169@gmail.com"
+                  className="bg-blue-600 p-2 rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
                 >
-                  gps.96169@gmail.com
+                  <Mail className="w-5 h-5 text-white" />
                 </a>
-              </p>
-            </div>
-            
-            <div>
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white">WhatsApp</h3>
-              <p className="mt-2 text-base text-gray-500 dark:text-gray-300">
+                <div>
+                  <h3 className="font-medium text-gray-900">Email</h3>
+                  <a 
+                    href="mailto:gps.96169@gmail.com"
+                    className="text-gray-600 hover:text-blue-600 transition-colors"
+                  >
+                    gps.96169@gmail.com
+                  </a>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-4">
                 <a 
-                  href={whatsappUrl} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
-                >
-                  <span>+91 8957818597</span>
-                </a>
-              </p>
-              <div className="mt-4">
-                <a
-                  href={whatsappUrl}
+                  href="https://github.com/Gyanthakur/component-library"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                  className="bg-blue-600 p-2 rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
                 >
-                  Chat on WhatsApp
+                  <Github className="w-5 h-5 text-white" />
                 </a>
+                <div>
+                  <h3 className="font-medium text-gray-900">GitHub</h3>
+                  <a 
+                    href="https://github.com/Gyanthakur/component-library"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-600 hover:text-blue-600 transition-colors"
+                  >
+                    github.com/Gyanthakur/component-library
+                  </a>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-4">
+                <a 
+                  href="https://linktr.ee/gp_singh"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-blue-600 p-2 rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
+                >
+                  <MapPin className="w-5 h-5 text-white" />
+                </a>
+                <div>
+                  <h3 className="font-medium text-gray-900">Linktree</h3>
+                  <p className="text-gray-600">Check out our Linktree for all our social links: </p>
+                  <a 
+                    href="https://linktr.ee/gp_singh"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 transition-colors font-medium"
+                  >
+                    linktr.ee/gp_singh
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Social Links */}
+          <div className="bg-gray-50 p-8 rounded-2xl">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Follow Us</h2>
+            <div className="flex gap-4">
+              <a
+                href="https://github.com/Gyanthakur"
+                className="bg-gray-800 text-white p-3 rounded-lg hover:bg-gray-700 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Github className="w-5 h-5" />
+              </a>
+              <a
+                href="https://twitter.com/gps_96169"
+                className="bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Twitter className="w-5 h-5" />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/gyan-pratap-singh-275785236/"
+                className="bg-blue-700 text-white p-3 rounded-lg hover:bg-blue-800 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Linkedin className="w-5 h-5" />
+              </a>
+            </div>
+          </div>
+
+          {/* FAQ */}
+          <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+            <div className="space-y-4">
+              <div>
+                <h3 className="font-medium text-gray-900 mb-2">How can I contribute to the library?</h3>
+                <p className="text-gray-600 text-sm">Check out our CONTRIBUTING.md file for guidelines on how to contribute components, report bugs, or suggest improvements.</p>
+              </div>
+              <div>
+                <h3 className="font-medium text-gray-900 mb-2">Is this library free to use?</h3>
+                <p className="text-gray-600 text-sm">Yes! This component library is open source and free to use in both personal and commercial projects.</p>
+              </div>
+              <div>
+                <h3 className="font-medium text-gray-900 mb-2">How do I report a bug?</h3>
+                <p className="text-gray-600 text-sm">You can report bugs through our GitHub issues page or by using the contact form above with "Bug Report" as the subject.</p>
+
               </div>
             </div>
           </div>
