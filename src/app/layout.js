@@ -1,5 +1,5 @@
 import Navbar from './components/Navbar'
-import './globals.css'
+import '../styles/globals.css'  // ← Go up one level, then into styles
 import { ThemeProvider } from './context/ThemeContext'
 
 export const metadata = {

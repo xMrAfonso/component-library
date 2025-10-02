@@ -98,20 +98,22 @@ export const ThemeProvider = ({ children }) => {
     applyTheme(initialTheme);
     setIsLoading(false);
 
-    // Listen for system theme changes
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleSystemThemeChange = (e) => {
-      const savedTheme = localStorage.getItem('theme');
-      if (!savedTheme) {
-        const systemTheme = e.matches ? 'dark' : 'light';
-        setTheme(systemTheme);
-        applyTheme(systemTheme);
-      }
-    };
-
+    // Listen for system theme changes - FIXED: moved inside try-catch
     try {
-      mediaQuery.addEventListener('change', handleSystemThemeChange);
-      return () => mediaQuery.removeEventListener('change', handleSystemThemeChange);
+      if (typeof window !== 'undefined') {
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const handleSystemThemeChange = (e) => {
+          const savedTheme = localStorage.getItem('theme');
+          if (!savedTheme) {
+            const systemTheme = e.matches ? 'dark' : 'light';
+            setTheme(systemTheme);
+            applyTheme(systemTheme);
+          }
+        };
+
+        mediaQuery.addEventListener('change', handleSystemThemeChange);
+        return () => mediaQuery.removeEventListener('change', handleSystemThemeChange);
+      }
     } catch (error) {
       console.warn('Failed to listen for system theme changes:', error);
     }

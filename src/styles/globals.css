@@ -1,8 +1,206 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-/* Custom utilities */
+/* ============================================
+   AGGRESSIVE DARK MODE TEXT FIXES
+   ============================================ */
+
+/* Force all text elements to be visible in dark mode */
+.dark {
+  color: #e5e7eb !important;
+}
+
+/* All headings must be white in dark mode */
+.dark h1,
+.dark h2, 
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6,
+.dark .text-2xl,
+.dark .text-xl,
+.dark .text-lg {
+  color: #ffffff !important;
+}
+
+/* Override ALL gray text classes in dark mode */
+.dark .text-gray-900,
+.dark .text-gray-800,
+.dark .text-gray-700,
+.dark .text-gray-600,
+.dark .text-gray-500 {
+  color: #e5e7eb !important;
+}
+
+/* Font weight classes should be visible */
+.dark .font-semibold,
+.dark .font-medium,
+.dark .font-bold {
+  color: inherit;
+}
+
+/* Section elements */
+.dark section h2,
+.dark section h3 {
+  color: #ffffff !important;
+}
+
+/* ============================================
+   DARK MODE BACKGROUND FIXES
+   ============================================ */
+
+.dark .bg-gray-50 {
+  background-color: #1f2937 !important;
+}
+
+.dark .bg-gray-100 {
+  background-color: #374151 !important;
+}
+
+.dark .bg-white {
+  background-color: #1f2937 !important;
+}
+
+.dark .bg-blue-50 {
+  background-color: rgba(59, 130, 246, 0.15) !important;
+}
+
+.dark .bg-green-50 {
+  background-color: rgba(34, 197, 94, 0.15) !important;
+}
+
+/* ============================================
+   THEME CUSTOM CLASSES
+   ============================================ */
+
+.bg-theme-surface {
+  background-color: #ffffff;
+}
+
+.dark .bg-theme-surface {
+  background-color: #1f2937;
+}
+
+.bg-theme-surface-hover {
+  background-color: #f9fafb;
+}
+
+.dark .bg-theme-surface-hover {
+  background-color: #374151;
+}
+
+.bg-theme-surface\/80 {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.dark .bg-theme-surface\/80 {
+  background-color: rgba(31, 41, 55, 0.8);
+}
+
+.bg-theme-surface\/95 {
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+.dark .bg-theme-surface\/95 {
+  background-color: rgba(31, 41, 55, 0.95);
+}
+
+.border-theme {
+  border-color: #e5e7eb;
+}
+
+.dark .border-theme {
+  border-color: #374151;
+}
+
+.border-theme-light {
+  border-color: #e5e7eb;
+}
+
+.dark .border-theme-light {
+  border-color: #374151;
+}
+
+.text-theme-primary {
+  color: #111827;
+}
+
+.dark .text-theme-primary {
+  color: #ffffff !important;
+}
+
+.text-theme-secondary {
+  color: #6b7280;
+}
+
+.dark .text-theme-secondary {
+  color: #d1d5db;
+}
+
+.text-theme-muted {
+  color: #9ca3af;
+}
+
+.dark .text-theme-muted {
+  color: #9ca3af;
+}
+
+.bg-theme-primary {
+  background-color: #3b82f6;
+}
+
+.dark .bg-theme-primary {
+  background-color: #2563eb;
+}
+
+.shadow-theme-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.dark .shadow-theme-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.focus-theme:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.dark .focus-theme:focus {
+  outline-color: #60a5fa;
+}
+
+/* ============================================
+   CUSTOM UTILITIES
+   ============================================ */
+
 .bg-gradient-card {
   background-image: linear-gradient(135deg, rgba(99,102,241,0.06), rgba(56,189,248,0.04));
+}
+
+button {
+  cursor: pointer;
+}
+
+/* ============================================
+   BORDER FIXES
+   ============================================ */
+
+.dark .border-gray-100 {
+  border-color: #374151 !important;
+}
+
+.dark .border-gray-200 {
+  border-color: #4b5563 !important;
+}
+
+.dark .border {
+  border-color: #374151 !important;
+}
+
+.bg-theme-background {
+  background-color: #ffffff;
+}
+
+.dark .bg-theme-background {
+  background-color: #0f172a;
 }

@@ -85,7 +85,7 @@ export default function Page() {
   return (
     <div className="space-y-12">
       <section className='mt-12'>
-        <h2 className="text-2xl font-semibold mb-4">Buttons</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-theme-primary">Buttons</h2>
         <div className="flex gap-4 flex-wrap items-center">
           <PrimaryButton>Primary</PrimaryButton>
           <SecondaryButton>Secondary</SecondaryButton>
