@@ -1,6 +1,8 @@
+
 "use client"
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, Github, Twitter, Linkedin } from 'lucide-react';
+
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -40,6 +42,7 @@ export default function ContactPage() {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -113,6 +116,7 @@ export default function ContactPage() {
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                 Full Name *
+
               </label>
               <input
                 type="text"
@@ -120,6 +124,7 @@ export default function ContactPage() {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
+
                 className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
                   errors.name ? 'border-red-500 bg-red-50' : 'border-gray-300'
                 }`}
@@ -132,6 +137,7 @@ export default function ContactPage() {
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                 Email Address *
+
               </label>
               <input
                 type="email"
@@ -139,6 +145,7 @@ export default function ContactPage() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
+
                 className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
                   errors.email ? 'border-red-500 bg-red-50' : 'border-gray-300'
                 }`}
@@ -176,6 +183,7 @@ export default function ContactPage() {
             <div>
               <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
                 Message *
+
               </label>
               <textarea
                 id="message"
@@ -329,6 +337,7 @@ export default function ContactPage() {
               <div>
                 <h3 className="font-medium text-gray-900 mb-2">How do I report a bug?</h3>
                 <p className="text-gray-600 text-sm">You can report bugs through our GitHub issues page or by using the contact form above with "Bug Report" as the subject.</p>
+
               </div>
             </div>
           </div>
