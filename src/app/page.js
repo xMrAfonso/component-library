@@ -1,12 +1,12 @@
-'use client';
-
-import React, { useState } from 'react'
-import { Search, X } from 'lucide-react'
+"use client";
+import React from 'react'
+import ThemeToggleButton from './components/ThemeToggleButton'
 import PrimaryButton from '../components/buttons/PrimaryButton'
 import SecondaryButton from '../components/buttons/SecondaryButton'
 import GhostButton from '../components/buttons/GhostButton'
 import IconButton from '../components/buttons/IconButton'
 import PillButton from '../components/buttons/PillButton'
+
 import SimpleCard from '../components/cards/SimpleCard'
 import ImageCard from '../components/cards/ImageCard'
 import FeatureCard from '../components/cards/FeatureCard'
@@ -19,159 +19,240 @@ import LinkButton from '@/components/buttons/LinkButton'
 import LoadingButton from '@/components/buttons/LoadingButton'
 import RoundButton from '@/components/buttons/RoundButton'
 import SuccessButton from '@/components/buttons/SuccessButton'
+import StatsCard from '@/components/cards/StatsCard'
+import TestimonialCard from '@/components/cards/TestimonialCard'
+
+// Input Components
+import TextInput from '../components/inputs/TextInput'
+import Select from '../components/inputs/Select'
+import Checkbox from '../components/inputs/Checkbox'
+
+// Navigation Components
+import Tabs from '../components/navigation/Tabs'
+import Breadcrumb from '../components/navigation/Breadcrumb'
+import Pagination from '../components/navigation/Pagination'
+
+// Feedback Components
+import Alert from '../components/feedback/Alert'
+import Badge from '../components/feedback/Badge'
+import ProgressBar from '../components/feedback/ProgressBar'
 
 export default function Page() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterType, setFilterType] = useState('all');
-
-  // All components with search data
-  const allComponents = {
-    buttons: [
-      { name: 'Primary Button', component: <PrimaryButton>Primary</PrimaryButton>, keywords: ['primary', 'main', 'action'] },
-      { name: 'Secondary Button', component: <SecondaryButton>Secondary</SecondaryButton>, keywords: ['secondary', 'alternate'] },
-      { name: 'Ghost Button', component: <GhostButton>Ghost</GhostButton>, keywords: ['ghost', 'transparent', 'subtle'] },
-      { name: 'Outline Button', component: <OutlineButton>Outline</OutlineButton>, keywords: ['outline', 'border', 'stroke'] },
-      { name: 'Danger Button', component: <DangerButton>Danger</DangerButton>, keywords: ['danger', 'error', 'delete', 'warning'] },
-      { name: 'Link Button', component: <LinkButton>Link</LinkButton>, keywords: ['link', 'text', 'minimal'] },
-      { name: 'Loading Button', component: <LoadingButton>Loading</LoadingButton>, keywords: ['loading', 'spinner', 'progress'] },
-      { name: 'Round Button', component: <RoundButton>Rounded</RoundButton>, keywords: ['round', 'rounded', 'circular'] },
-      { name: 'Success Button', component: <SuccessButton>Success</SuccessButton>, keywords: ['success', 'confirm', 'done'] },
-      { name: 'Icon Button', component: <IconButton aria-label="star">★</IconButton>, keywords: ['icon', 'star', 'symbol'] },
-      { name: 'Pill Button', component: <PillButton>Subscribe</PillButton>, keywords: ['pill', 'subscribe', 'rounded'] }
-    ],
-    cards: [
-      { name: 'Simple Card', component: <SimpleCard title="Simple Card" description="A minimal card with actions." />, keywords: ['simple', 'basic', 'minimal'] },
-      { name: 'Image Card', component: <ImageCard title="Image Card" description="Card with SVG image." />, keywords: ['image', 'picture', 'visual'] },
-      { name: 'Feature Card', component: <FeatureCard title="Feature Card" description="Highlight features and benefits." />, keywords: ['feature', 'highlight', 'benefit'] },
-      { name: 'Profile Card', component: <ProfileCard name="Alex Johnson" role="Product Designer" />, keywords: ['profile', 'user', 'person', 'avatar'] },
-      { name: 'Pricing Card', component: <PricingCard plan="Pro" price="$9/mo" features={["10 projects", "Priority support", "Unlimited users"]} />, keywords: ['pricing', 'plan', 'subscription', 'price'] },
-      { name: 'Data Card', component: <DataCard title="Active Projects" value="27" icon="📂" trend={8} />, keywords: ['data', 'stats', 'analytics', 'metrics'] }
-    ]
-  };
-
-  // Filter logic
-  const getFilteredComponents = () => {
-    let components = {};
-
-    // Apply type filter
-    if (filterType === 'all') {
-      components = allComponents;
-    } else {
-      components = { [filterType]: allComponents[filterType] };
+  const [isDark, setIsDark] = React.useState(false);
+  const handleThemeToggle = () => setIsDark((prev) => !prev);
+  
+  // Input component states
+  const [inputValue, setInputValue] = React.useState('');
+  const [selectValue, setSelectValue] = React.useState('');
+  const [checkboxValue, setCheckboxValue] = React.useState(false);
+  
+  // Navigation component states
+  const [activeTab, setActiveTab] = React.useState(0);
+  const [currentPage, setCurrentPage] = React.useState(1);
+  
+  // Feedback component states
+  const [showAlert, setShowAlert] = React.useState(true);
+  
+  // Sample data
+  const selectOptions = [
+    { value: 'option1', label: 'Option 1' },
+    { value: 'option2', label: 'Option 2' },
+    { value: 'option3', label: 'Option 3' }
+  ];
+  
+  const tabsData = [
+    { 
+      label: 'Dashboard', 
+      content: <div className="p-4">Dashboard content goes here...</div>,
+      badge: '3'
+    },
+    { 
+      label: 'Analytics', 
+      content: <div className="p-4">Analytics content goes here...</div>
+    },
+    { 
+      label: 'Settings', 
+      content: <div className="p-4">Settings content goes here...</div>
     }
-
-    // Apply search filter
-    if (searchTerm) {
-      const filtered = {};
-      Object.keys(components).forEach(type => {
-        const matchedComponents = components[type].filter(comp =>
-          comp.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          comp.keywords.some(keyword => keyword.toLowerCase().includes(searchTerm.toLowerCase()))
-        );
-        if (matchedComponents.length > 0) {
-          filtered[type] = matchedComponents;
-        }
-      });
-      return filtered;
-    }
-
-    return components;
-  };
-
-  const filteredComponents = getFilteredComponents();
-  const totalResults = Object.values(filteredComponents).reduce((total, components) => total + components.length, 0);
-
+  ];
+  
+  const breadcrumbItems = [
+    { label: 'Home', href: '/' },
+    { label: 'Components', href: '/components' },
+    { label: 'Navigation', href: '/components/navigation' },
+    { label: 'Breadcrumb' }
+  ];
   return (
-    <div className="space-y-8">
-      {/* Hero Section */}
-      <section className="text-center py-8 mt-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-6">Component Library</h1>
+    <div className="space-y-12">
+      <section className='mt-12'>
+        <h2 className="text-2xl font-semibold mb-4">Buttons</h2>
+        <div className="flex gap-4 flex-wrap items-center">
+          <PrimaryButton>Primary</PrimaryButton>
+          <SecondaryButton>Secondary</SecondaryButton>
+          <GhostButton>Ghost</GhostButton>
+          <OutlineButton>Outline</OutlineButton>
+          <DangerButton>Danger</DangerButton>
+          <LinkButton>Link</LinkButton>
+          <LoadingButton>Loading</LoadingButton>
+          <RoundButton>Rounded</RoundButton>
+          <SuccessButton>Success</SuccessButton>
+          <IconButton aria-label="star">★</IconButton>
+          <PillButton>Subscribe</PillButton>
+          <ThemeToggleButton onClick={handleThemeToggle} isDark={isDark} />
+        </div>
+      </section>
 
-        {/* Search Bar - Inline */}
-        <div className="flex flex-col sm:flex-row gap-3 max-w-2xl mx-auto">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search components (buttons, cards, primary, etc.)"
-              className="w-full pl-9 pr-8 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-sm"
-            />
-            {searchTerm && (
-              <button
-                onClick={() => setSearchTerm('')}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            )}
+      <section>
+        <h2 className="text-2xl font-semibold mb-4">Cards</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <SimpleCard title="Simple Card" description="A minimal card with actions." />
+          <ImageCard title="Image Card" description="Card with SVG image." />
+          <FeatureCard title="Feature Card" description="Highlight features and benefits." />
+          <ProfileCard name="Alex Johnson" role="Product Designer" />
+          <PricingCard plan="Pro" price="$9/mo" features={["10 projects", "Priority support", "Unlimited users"]} />
+          <TestimonialCard name="Jane Doe" role="CEO" quote="This product is amazing!" />
+          <DataCard title="Active Projects" value="27" icon="📂" trend={8} />
+          <StatsCard title="Revenue" value="$12K" icon="💰" trend={12} />
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-semibold mb-4">Input Components</h2>
+        <div className="max-w-md space-y-4">
+          <TextInput
+            label="Email Address"
+            placeholder="Enter your email"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            helperText="We'll never share your email"
+            required
+          />
+          <TextInput
+            label="Password"
+            type="password"
+            placeholder="Enter your password"
+            error="Password must be at least 8 characters"
+          />
+          <Select
+            label="Choose an option"
+            options={selectOptions}
+            value={selectValue}
+            onChange={(e) => setSelectValue(e.target.value)}
+            required
+          />
+          <Checkbox
+            label="Terms and Conditions"
+            description="I agree to the terms and conditions"
+            checked={checkboxValue}
+            onChange={(e) => setCheckboxValue(e.target.checked)}
+          />
+          <Checkbox
+            label="Disabled Option"
+            description="This option is disabled"
+            disabled
+          />
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-semibold mb-4">Navigation Components</h2>
+        <div className="space-y-8">
+          <div>
+            <h3 className="text-lg font-medium mb-3">Breadcrumb</h3>
+            <Breadcrumb items={breadcrumbItems} />
           </div>
-          <div className="sm:w-40">
-            <select
-              value={filterType}
-              onChange={(e) => setFilterType(e.target.value)}
-              className="w-full py-2 px-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all bg-white text-sm"
-            >
-              <option value="all">All Components</option>
-              <option value="buttons">Buttons</option>
-              <option value="cards">Cards</option>
-            </select>
+          
+          <div>
+            <h3 className="text-lg font-medium mb-3">Tabs</h3>
+            <Tabs 
+              tabs={tabsData} 
+              defaultTab={activeTab}
+              onTabChange={(index) => setActiveTab(index)}
+            />
+          </div>
+          
+          <div>
+            <h3 className="text-lg font-medium mb-3">Pagination</h3>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={10}
+              onPageChange={(page) => setCurrentPage(page)}
+              maxVisiblePages={5}
+            />
           </div>
         </div>
       </section>
 
-      {/* Results Info */}
-      {(searchTerm || filterType !== 'all') && (
-        <div className="bg-blue-50 p-4 rounded-lg">
-          <p className="text-blue-800">
-            Found <span className="font-semibold">{totalResults}</span> component{totalResults !== 1 ? 's' : ''}
-            {searchTerm && ` matching "${searchTerm}"`}
-            {filterType !== 'all' && ` in ${filterType}`}
-          </p>
-        </div>
-      )}
-
-      {/* No Results */}
-      {totalResults === 0 && (
-        <div className="text-center py-12">
-          <div className="text-6xl mb-4">🔍</div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">No components found</h3>
-          <p className="text-gray-600">Try adjusting your search terms or filters</p>
-        </div>
-      )}
-
-      {/* Buttons Section */}
-      {filteredComponents.buttons && (
-        <section>
-          <h2 className="text-2xl font-semibold mb-6 text-gray-900">
-            Buttons ({filteredComponents.buttons.length})
-          </h2>
-          <div className="flex gap-4 flex-wrap">
-            {filteredComponents.buttons.map((item, index) => (
-              <div key={index}>
-                {item.component}
-              </div>
-            ))}
+      <section>
+        <h2 className="text-2xl font-semibold mb-4">Feedback Components</h2>
+        <div className="space-y-6">
+          <div>
+            <h3 className="text-lg font-medium mb-3">Alerts</h3>
+            <div className="space-y-3">
+              {showAlert && (
+                <Alert
+                  type="success"
+                  title="Success!"
+                  message="Your account has been created successfully."
+                  dismissible
+                  onClose={() => setShowAlert(false)}
+                />
+              )}
+              <Alert
+                type="error"
+                title="Error"
+                message="There was a problem processing your request."
+              />
+              <Alert
+                type="warning"
+                message="Your subscription will expire in 3 days."
+              />
+              <Alert
+                type="info"
+                title="Information"
+                message="New features are now available."
+              />
+            </div>
           </div>
-        </section>
-      )}
-
-      {/* Cards Section */}
-      {filteredComponents.cards && (
-        <section>
-          <h2 className="text-2xl font-semibold mb-6 text-gray-900">
-            Cards ({filteredComponents.cards.length})
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredComponents.cards.map((item, index) => (
-              <div key={index}>
-                {item.component}
-              </div>
-            ))}
+          
+          <div>
+            <h3 className="text-lg font-medium mb-3">Badges</h3>
+            <div className="flex flex-wrap gap-2">
+              <Badge>Default</Badge>
+              <Badge variant="primary">Primary</Badge>
+              <Badge variant="success" dot>Success</Badge>
+              <Badge variant="warning" size="sm">Warning</Badge>
+              <Badge variant="error" size="lg">Error</Badge>
+              <Badge variant="info" removable onRemove={() => alert('Badge removed!')}>
+                Removable
+              </Badge>
+            </div>
           </div>
-        </section>
-      )}
+          
+          <div>
+            <h3 className="text-lg font-medium mb-3">Progress Bars</h3>
+            <div className="space-y-4 max-w-md">
+              <ProgressBar
+                label="Upload Progress"
+                value={75}
+                color="indigo"
+              />
+              <ProgressBar
+                label="Download"
+                value={45}
+                color="green"
+                size="sm"
+              />
+              <ProgressBar
+                value={90}
+                color="red"
+                size="lg"
+                animated
+              />
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
