@@ -14,6 +14,7 @@ const Navbar = () => {
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
     { href: "/components", label: "Components" },
+    { href: "/feedback", label: "Feedback" },
   ];
 
   const isActive = (path) => pathname === path;
