@@ -1,13 +1,13 @@
 "use client";
 import React from 'react';
-import PrimaryButton from '../../components/buttons/PrimaryButton';
-import SecondaryButton from '../../components/buttons/SecondaryButton';
-import OutlineButton from '../../components/buttons/OutlineButton';
-import TextInput from '../../components/inputs/TextInput';
-import Select from '../../components/inputs/Select';
-import Alert from '../../components/feedback/Alert';
-import Badge from '../../components/feedback/Badge';
-import ProgressBar from '../../components/feedback/ProgressBar';
+import PrimaryButton from './../components/buttons/PrimaryButton';
+import SecondaryButton from './../components/buttons/SecondaryButton';
+import OutlineButton from './../components/buttons/OutlineButton';
+import TextInput from './../components/inputs/TextInput';
+import Select from './../components/inputs/Select';
+import Alert from './../components/feedback/Alert';
+import Badge from './../components/feedback/Badge';
+import ProgressBar from './../components/feedback/ProgressBar';
 
 export default function FeedbackPage() {
   const [feedback, setFeedback] = React.useState('');
