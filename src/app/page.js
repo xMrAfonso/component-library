@@ -6,6 +6,7 @@ import SimpleCard from './components/cards/SimpleCard';
 import FeatureCard from './components/cards/FeatureCard';
 import PricingCard from './components/cards/PricingCard';
 import DataCard from './components/cards/DataCard';
+import Image from "next/image";
 
 export default function HomePage() {
   const [darkMode, setDarkMode] = useState(false);
@@ -85,7 +86,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="md:w-1/2 max-w-lg mx-auto">
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=800&q=80"
               alt="Modern UI Design Illustration"
               className="rounded-3xl shadow-2xl w-full"

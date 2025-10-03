@@ -262,7 +262,7 @@ export default function FeedbackPage() {
                 <Badge variant="success" size="sm" className="ml-auto">Feature</Badge>
               </div>
               <p className="text-gray-700 text-sm">
-                "Love the new button variants! Could we get a loading state for buttons?"
+                Love the new button variants! Could we get a loading state for buttons?
               </p>
             </div>
 
@@ -278,7 +278,7 @@ export default function FeedbackPage() {
                 <Badge variant="error" size="sm" className="ml-auto">Bug</Badge>
               </div>
               <p className="text-gray-700 text-sm">
-                "Card component spacing issue on mobile devices. Fixed in latest update!"
+                Card component spacing issue on mobile devices. Fixed in latest update!
               </p>
             </div>
 
@@ -294,7 +294,7 @@ export default function FeedbackPage() {
                 <Badge variant="primary" size="sm" className="ml-auto">General</Badge>
               </div>
               <p className="text-gray-700 text-sm">
-                "Excellent documentation and examples. Makes integration super easy!"
+                Excellent documentation and examples. Makes integration super easy!
               </p>
             </div>
           </div>
