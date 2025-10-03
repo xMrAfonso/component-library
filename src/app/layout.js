@@ -1,6 +1,7 @@
 import Navbar from './components/Navbar'
 import './globals.css'
 import { ThemeProvider } from './context/ThemeContext'
+import Footer from './components/Footer';
 
 export const metadata = {
   title: 'Open Source Component Library',
@@ -16,10 +17,8 @@ export default function RootLayout({ children }) {
             <Navbar />
             <main className='max-w-7xl mx-auto'>
               {children}
-            </main>
-            <footer className="mt-12 text-xs text-theme-muted text-center">
-              Made for Hacktoberfest
-            </footer>
+            </main> 
+            <Footer/>
           </div>
         </ThemeProvider>
       </body>
