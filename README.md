@@ -63,7 +63,7 @@ We welcome all contributions! Please follow these steps:
 3. Now, clone your forked repo:
 
 ```bash
-git clone https://github.comGyanthakur/component-library.git
+git clone https://github.com/Gyanthakur/component-library.git
 ```
 
 ---

@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "Component Library Quick Access",
+  "version": "1.0.0",
+  "description": "Instant access to an open-source Next.js + Tailwind CSS Component Library with ready-to-use UI components like Buttons and Cards.",
+  "permissions": ["tabs"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Component Library"
+  }
+}
