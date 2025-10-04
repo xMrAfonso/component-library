@@ -1,0 +1,40 @@
+/* Card base styles */
+.card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default; /* Default cursor for non-interactive cards */
+}
+
+/* Hover effect for interactive cards */
+.card.interactive {
+  cursor: pointer; /* Changes cursor to pointer */
+}
+
+.card.interactive:hover {
+  transform: translateY(-5px) scale(1.02); /* Slight lift and scale */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* Deeper shadow */
+}
+
+Example HTML
+
+<div class="card interactive">
+  <h3>Card Title</h3>
+  <p>Some description about this card.</p>
+</div>
+
+<div class="card">
+  <h3>Static Card</h3>
+  <p>This card does not have hover interaction.</p>
+</div>
+
+✅ How it works:
+
+.card.interactive cards show a pointer on hover.
+
+On hover, they slightly scale up and lift, giving a smooth, dynamic feel.
+
+Transition makes the animation smooth instead of abrupt.
+
