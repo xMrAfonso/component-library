@@ -114,7 +114,7 @@ export default function Page() {
       { name: 'Danger Button', component: <DangerButton>Danger</DangerButton>, keywords: ['danger', 'error', 'delete', 'warning', 'red'] , desc : "Used for destructive actions" },
       { name: 'Success Button', component: <SuccessButton>Success</SuccessButton>, keywords: ['success', 'confirm', 'done', 'green'] , desc : "Used for success actions"},
       { name: 'Icon Button', component: <IconButton aria-label="star">★</IconButton>, keywords: ['icon', 'star', 'symbol'] , desc : "Used for icons"},
-      { name: 'Star Rating Buttons', component: <StarRating totalStars={5} initialRating={0}></StarRating>, keywords: ['icon', 'star', 'symbol'] , desc : "Used for icons"}
+      { name: 'Star Rating Buttons', component: <StarRating totalStars={5} initialRating={0}></StarRating>, keywords: ['icon', 'star', 'rate', 'rating'] , desc : "Used for giving ratings based on stars"}
     ],
     cards: [
       { name: 'Simple Card', component: <SimpleCard title="Simple Card" description="A minimal card with actions." />, keywords: ['simple', 'basic', 'minimal'] },
