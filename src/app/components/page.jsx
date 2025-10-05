@@ -48,6 +48,7 @@ import Checkbox from "./inputs/Checkbox";
 import Tabs from "./navigation/Tabs";
 import Breadcrumb from "./navigation/Breadcrumb";
 import Pagination from "./navigation/Pagination";
+import RainbowButton from "@/app/components/buttons/RainbowButton";
 
 export default function Page() {
   // Search and Filter State
@@ -112,7 +113,8 @@ export default function Page() {
       { name: 'Outline Button', component: <OutlineButton>Outline</OutlineButton>, keywords: ['outline', 'border', 'stroke'] , desc : "Used for gives outline"},
       { name: 'Danger Button', component: <DangerButton>Danger</DangerButton>, keywords: ['danger', 'error', 'delete', 'warning', 'red'] , desc : "Used for destructive actions" },
       { name: 'Success Button', component: <SuccessButton>Success</SuccessButton>, keywords: ['success', 'confirm', 'done', 'green'] , desc : "Used for success actions"},
-      { name: 'Icon Button', component: <IconButton aria-label="star">★</IconButton>, keywords: ['icon', 'star', 'symbol'] , desc : "Used for icons"}
+      { name: 'Icon Button', component: <IconButton aria-label="star">★</IconButton>, keywords: ['icon', 'star', 'symbol'] , desc : "Used for icons"},
+        { name: 'Rainbow Button', component: <RainbowButton>Rainbow</RainbowButton>, keywords: ['rainbow', 'action', 'colorful'] , desc : "Used for call to actions"}
     ],
     cards: [
       { name: 'Simple Card', component: <SimpleCard title="Simple Card" description="A minimal card with actions." />, keywords: ['simple', 'basic', 'minimal'] },
