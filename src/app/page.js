@@ -3,16 +3,11 @@ import React from "react";
 import Link from "next/link";
 import { useTheme } from './context/ThemeContext';
 import { useAnalytics } from './context/AnalyticsContext';
-import React, { useState, useEffect } from "react";
-import Link from "next/link"; 
 import PrimaryButton from './components/buttons/PrimaryButton';
 import SimpleCard from './components/cards/SimpleCard';
 import FeatureCard from './components/cards/FeatureCard';
 import PricingCard from './components/cards/PricingCard';
 import DataCard from './components/cards/DataCard';
-
-
-import DataCard from './components/cards/DataCard'; 
 
 export default function HomePage() {
   const { darkMode, setDarkMode } = useTheme();
@@ -74,11 +69,10 @@ export default function HomePage() {
 
   return (
     <div
-      className={`${
-        darkMode ? "dark" : "light"
-      } transition-colors duration-700`}
+      className={`${darkMode ? "dark" : "light"
+        } transition-colors duration-700`}
     >
-      <div className="min-h-screen bg-gradient-to-tr light:from-indigo-50 light:via-purple-100 light:to-pink-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-950 text-gray-900 dark:text-gray-100"> 
+      <div className="min-h-screen bg-gradient-to-tr light:from-indigo-50 light:via-purple-100 light:to-pink-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-950 text-gray-900 dark:text-gray-100">
         {/* Hero Section */}
         <section className="max-w-7xl mx-auto px-6 py-24 flex flex-col md:flex-row items-center gap-4">
           <div className="md:w-1/2 space-y-8 text-center md:text-left">
@@ -101,15 +95,15 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-          <div className="md:w-1/2 max-w-lg mx-auto"> 
-           
+          <div className="md:w-1/2 max-w-lg mx-auto">
+
             <div className="bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 rounded-3xl shadow-2xl w-full h-96 flex items-center justify-center">
               <div className="text-white text-center">
                 <div className="text-6xl mb-4">🎨</div>
                 <h3 className="text-2xl font-bold mb-2">Beautiful Components</h3>
                 <p className="text-blue-100">Ready to use in your projects</p>
               </div>
-            </div> 
+            </div>
           </div>
         </section>
 

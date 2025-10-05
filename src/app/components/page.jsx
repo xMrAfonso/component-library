@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { Search, X } from 'lucide-react'
 import { useAnalytics } from '../context/AnalyticsContext'
+import { useTheme } from '../context/ThemeContext'
 // Button Imports
 // import PrimaryButton from '@/components/buttons/PrimaryButton'
 // import SecondaryButton from '@/components/buttons/SecondaryButton'
@@ -56,6 +57,9 @@ export default function Page() {
   
   // Analytics
   const { trackComponentView, trackComponentCopy } = useAnalytics();
+  
+  // Theme
+  const { darkMode } = useTheme();
 
   // Track page view - only once on mount
   useEffect(() => {
@@ -253,13 +257,14 @@ export default function Page() {
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {filteredComponents.buttons.map((item, index) => (
                 <div
+                key={index}
                 className={`${
-                  theme === "dark"
+                  darkMode
                     ? "bg-gray-800 text-gray-200"
                     : "bg-gray-300 text-gray-900"
                 } shadow-md rounded-2xl p-5 flex flex-col items-center text-center border border-gray-100 hover:shadow-lg transition w-60`}
               >
-                <div key={index} title={item.name}>
+                <div title={item.name}>
                   {item.component}
                 </div>
                 <div>
