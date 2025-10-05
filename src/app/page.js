@@ -1,22 +1,27 @@
 "use client";
+import React from "react";
+import Link from "next/link";
+import { useTheme } from './context/ThemeContext';
+import { useAnalytics } from './context/AnalyticsContext';
 import React, { useState, useEffect } from "react";
 import Link from "next/link"; 
 import PrimaryButton from './components/buttons/PrimaryButton';
 import SimpleCard from './components/cards/SimpleCard';
 import FeatureCard from './components/cards/FeatureCard';
 import PricingCard from './components/cards/PricingCard';
+import DataCard from './components/cards/DataCard';
+
+
 import DataCard from './components/cards/DataCard'; 
 
 export default function HomePage() {
-  const [darkMode, setDarkMode] = useState(false);
+  const { darkMode, setDarkMode } = useTheme();
+  const { trackComponentView } = useAnalytics();
 
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [darkMode]);
+  // Track page view
+  React.useEffect(() => {
+    trackComponentView('HomePage');
+  }, []);
 
   const features = [
     {

@@ -1,7 +1,7 @@
 "use client";
- 
-import React, { useState } from 'react'
-import { Search, X } from 'lucide-react' 
+import React, { useState, useEffect } from 'react'
+import { Search, X } from 'lucide-react'
+import { useAnalytics } from '../context/AnalyticsContext'
 // Button Imports
 // import PrimaryButton from '@/components/buttons/PrimaryButton'
 // import SecondaryButton from '@/components/buttons/SecondaryButton'
@@ -53,16 +53,14 @@ export default function Page() {
   // Search and Filter State
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('all');
+  
+  // Analytics
+  const { trackComponentView, trackComponentCopy } = useAnalytics();
 
-  // Theme State
-  const [theme, setTheme] = React.useState("light");
-  React.useEffect(() => {
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [theme]);
+  // Track page view - only once on mount
+  useEffect(() => {
+    trackComponentView('ComponentsPage');
+  }, []); // Empty dependency array to run only once
 
   // Inputs
   const [inputValue, setInputValue] = React.useState("");
@@ -103,6 +101,8 @@ export default function Page() {
     { label: "Breadcrumb" },
   ];
 
+
+
   // All components with search data
   const allComponents = {
     buttons: [
@@ -124,7 +124,7 @@ export default function Page() {
     inputs: [
       { name: 'Text Input', component: <TextInput label="Sample Input" placeholder="Enter text" />, keywords: ['text', 'input', 'field', 'form'] },
       { name: 'Select', component: <Select label="Sample Select" options={selectOptions} />, keywords: ['select', 'dropdown', 'options', 'choice'] },
-      { name: 'Checkbox', component: <Checkbox label="Sample Checkbox" description="Check this option" />, keywords: ['checkbox', 'check', 'toggle', 'boolean'] }
+      { name: 'Checkbox', component: <Checkbox label="Sample Checkbox" description="Check this option" checked={false} onChange={() => {}} />, keywords: ['checkbox', 'check', 'toggle', 'boolean'] }
     ],
     navigation: [
       { name: 'Breadcrumb', component: <Breadcrumb items={breadcrumbItems} />, keywords: ['breadcrumb', 'navigation', 'path', 'hierarchy'] },
@@ -344,6 +344,8 @@ export default function Page() {
                   <Checkbox
                     label="Disabled Option"
                     description="This option is disabled"
+                    checked={false}
+                    onChange={() => {}}
                     disabled
                   />
                 </>
