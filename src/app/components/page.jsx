@@ -1,13 +1,37 @@
 "use client";
- 
-import React, { useState } from 'react'
-import { Search, X } from 'lucide-react' 
+import React, { useState, useEffect } from 'react'
+import { Search, X } from 'lucide-react'
+import { useAnalytics } from '../context/AnalyticsContext'
+import { useTheme } from '../context/ThemeContext'
+// Button Imports
+// import PrimaryButton from '@/components/buttons/PrimaryButton'
+// import SecondaryButton from '@/components/buttons/SecondaryButton'
+// import GhostButton from '@/components/buttons/GhostButton'
+// import IconButton from '@/components/buttons/IconButton'
+// import OutlineButton from '@/components/buttons/OutlineButton'
+// import DangerButton from '@/components/buttons/DangerButton'
+// import SuccessButton from '@/components/buttons/SuccessButton'
+// // Cards
+// import SimpleCard from '@/components/cards/SimpleCard'
+// import ImageCard from '@/components/cards/ImageCard'
+// import FeatureCard from '@/components/cards/FeatureCard'
+// import PricingCard from '@/components/cards/PricingCard'
+// import DataCard from '@/components/cards/DataCard'
+// // Inputs
+// import TextInput from '@/components/inputs/TextInput'
+// import Select from '@/components/inputs/Select'
+// import Checkbox from '@/components/inputs/Checkbox'
+// // Nav
+// import Tabs from '@/components/navigation/Tabs'
+// import Breadcrumb from '@/components/navigation/Breadcrumb'
+// import Pagination from '@/components/navigation/Pagination'
 
 // button Imports
 import PrimaryButton from "./buttons/PrimaryButton";
 import SecondaryButton from "./buttons/SecondaryButton";
 import GhostButton from "./buttons/GhostButton";
 import IconButton from "./buttons/IconButton";
+
 import OutlineButton from "./buttons/OutlineButton";
 import DangerButton from "./buttons/DangerButton";
 import SuccessButton from "./buttons/SuccessButton";
@@ -22,20 +46,25 @@ import TextInput from "./inputs/TextInput";
 import Select from "./inputs/Select";
 import Checkbox from "./inputs/Checkbox";
 // Nav
-import Tabs from './navigation/Tabs'
-import Breadcrumb from './navigation/Breadcrumb'
-import Pagination from './navigation/Pagination'
-
-import { useTheme } from '../context/ThemeContext';
+import Tabs from "./navigation/Tabs";
+import Breadcrumb from "./navigation/Breadcrumb";
+import Pagination from "./navigation/Pagination";
 
 export default function Page() {
-  // Theme from context
-  const { darkMode } = useTheme();
-  const theme = darkMode ? "dark" : "light";
-
   // Search and Filter State
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('all');
+  
+  // Analytics
+  const { trackComponentView, trackComponentCopy } = useAnalytics();
+  
+  // Theme
+  const { darkMode } = useTheme();
+
+  // Track page view - only once on mount
+  useEffect(() => {
+    trackComponentView('ComponentsPage');
+  }, []); // Empty dependency array to run only once
 
   // Inputs
   const [inputValue, setInputValue] = React.useState("");
@@ -76,6 +105,8 @@ export default function Page() {
     { label: "Breadcrumb" },
   ];
 
+
+
   // All components with search data
   const allComponents = {
     buttons: [
@@ -97,7 +128,7 @@ export default function Page() {
     inputs: [
       { name: 'Text Input', component: <TextInput label="Sample Input" placeholder="Enter text" />, keywords: ['text', 'input', 'field', 'form'] },
       { name: 'Select', component: <Select label="Sample Select" options={selectOptions} />, keywords: ['select', 'dropdown', 'options', 'choice'] },
-      { name: 'Checkbox', component: <Checkbox label="Sample Checkbox" description="Check this option" />, keywords: ['checkbox', 'check', 'toggle', 'boolean'] }
+      { name: 'Checkbox', component: <Checkbox label="Sample Checkbox" description="Check this option" checked={false} onChange={() => {}} />, keywords: ['checkbox', 'check', 'toggle', 'boolean'] }
     ],
     navigation: [
       { name: 'Breadcrumb', component: <Breadcrumb items={breadcrumbItems} />, keywords: ['breadcrumb', 'navigation', 'path', 'hierarchy'] },
@@ -140,6 +171,8 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-sky-50 via-indigo-50 to-pink-50 dark:from-[#1d1e26] dark:via-[#212936] dark:to-[#28243c] transition-colors duration-500">
+      {/* <ThemeToggle theme={theme} setTheme={setTheme} /> */}
+
       {/* Glassmorphism Hero Header */}
       <section className="relative max-w-5xl mx-auto px-4 mt-8 mb-16">
         <div className="backdrop-blur-md bg-white/70 dark:bg-gray-900/70 rounded-2xl shadow-2xl py-12 px-8 flex flex-col items-center gap-6 border border-gray-50 dark:border-gray-800">
@@ -224,13 +257,14 @@ export default function Page() {
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {filteredComponents.buttons.map((item, index) => (
                 <div
+                key={index}
                 className={`${
-                  theme === "dark"
+                  darkMode
                     ? "bg-gray-800 text-gray-200"
                     : "bg-gray-300 text-gray-900"
                 } shadow-md rounded-2xl p-5 flex flex-col items-center text-center border border-gray-100 hover:shadow-lg transition w-60`}
               >
-                <div key={index} title={item.name}>
+                <div title={item.name}>
                   {item.component}
                 </div>
                 <div>
@@ -315,6 +349,8 @@ export default function Page() {
                   <Checkbox
                     label="Disabled Option"
                     description="This option is disabled"
+                    checked={false}
+                    onChange={() => {}}
                     disabled
                   />
                 </>
