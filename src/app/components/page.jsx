@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react'
 import { Search, X } from 'lucide-react'
+
 import { useAnalytics } from '../context/AnalyticsContext'
 import { useTheme } from '../context/ThemeContext'
 // Button Imports
@@ -50,13 +51,15 @@ import Tabs from "./navigation/Tabs";
 import Breadcrumb from "./navigation/Breadcrumb";
 import Pagination from "./navigation/Pagination";
 
+
 export default function Page() {
   // Search and Filter State
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('all');
+
   
   // Analytics
-  const { trackComponentView, trackComponentCopy } = useAnalytics();
+  const { trackComponentView } = useAnalytics();
   
   // Theme
   const { darkMode } = useTheme();
@@ -71,9 +74,7 @@ export default function Page() {
   const [selectValue, setSelectValue] = React.useState("");
   const [checkboxValue, setCheckboxValue] = React.useState(false);
 
-  // Navigation
-  const [activeTab, setActiveTab] = React.useState(0);
-  const [currentPage, setCurrentPage] = React.useState(1);
+
 
   // Data
   const selectOptions = [
@@ -264,7 +265,7 @@ export default function Page() {
                     : "bg-gray-300 text-gray-900"
                 } shadow-md rounded-2xl p-5 flex flex-col items-center text-center border border-gray-100 hover:shadow-lg transition w-60`}
               >
-                <div title={item.name}>
+                <div title={item.name} className="mb-3">
                   {item.component}
                 </div>
                 <div>
