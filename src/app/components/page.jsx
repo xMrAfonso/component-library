@@ -49,6 +49,7 @@ import Checkbox from "./inputs/Checkbox";
 import Tabs from "./navigation/Tabs";
 import Breadcrumb from "./navigation/Breadcrumb";
 import Pagination from "./navigation/Pagination";
+import UserCard from "@/app/components/cards/UserCard";
 
 export default function Page() {
   // Search and Filter State
@@ -123,7 +124,8 @@ export default function Page() {
       { name: 'Image Card', component: <ImageCard title="Image Card" description="Card with SVG image." />, keywords: ['image', 'picture', 'visual'] },
       { name: 'Feature Card', component: <FeatureCard title="Feature Card" description="Highlight features and benefits." />, keywords: ['feature', 'highlight', 'benefit'] },
       { name: 'Pricing Card', component: <PricingCard plan="Pro" price="$9/mo" features={["10 projects", "Priority support", "Unlimited users"]} />, keywords: ['pricing', 'plan', 'subscription', 'price'] },
-      { name: 'Data Card', component: <DataCard title="Active Projects" value="27" icon="📂" trend={8} />, keywords: ['data', 'stats', 'analytics', 'metrics'] }
+      { name: 'Data Card', component: <DataCard title="Active Projects" value="27" icon="📂" trend={8} />, keywords: ['data', 'stats', 'analytics', 'metrics'] },
+      { name: 'User Card', component: <UserCard avatar="https://i.pravatar.cc/150?img=3" name="Afonso Santos" email="afonso@example.com" role="Frontend Developer" onClick={() => alert('Card clicked!')}/>, keywords: ['user', 'profile', 'glass', 'avatar'] }
     ],
     inputs: [
       { name: 'Text Input', component: <TextInput label="Sample Input" placeholder="Enter text" />, keywords: ['text', 'input', 'field', 'form'] },
