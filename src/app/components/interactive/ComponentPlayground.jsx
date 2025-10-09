@@ -865,13 +865,16 @@ export default function ComponentPlayground() {
           {Object.entries(componentVariants[selectedComponent] || {}).map(([key, variant]) => (
             <div key={key} className="text-center p-4 border border-gray-200 dark:border-gray-600 rounded-lg hover:border-blue-500 dark:hover:border-blue-400 transition-colors">
               <div className="mb-3 flex justify-center">
-                <button
+                <div
                   onClick={() => setSelectedVariant(key)}
-                  className={`transition-all ${selectedVariant === key ? 'ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-gray-800' : ''}`}
+                  className={`cursor-pointer transition-all ${selectedVariant === key ? 'ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-gray-800 rounded-lg' : ''}`}
                 >
                   {/* Render mini version of each variant */}
                   {selectedComponent === 'button' && (
-                    <variant.component onClick={() => setSelectedVariant(key)}>
+                    <variant.component onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedVariant(key);
+                    }}>
                       {variant.name.split(' ')[0]}
                     </variant.component>
                   )}
@@ -910,7 +913,7 @@ export default function ComponentPlayground() {
                       />
                     </div>
                   )}
-                </button>
+                </div>
               </div>
               <h3 className="font-medium text-sm text-gray-900 dark:text-white mb-1">
                 {variant.name}
