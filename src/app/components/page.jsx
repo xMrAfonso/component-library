@@ -121,8 +121,8 @@ export default function Page() {
       { name: 'Danger Button', component: <DangerButton>Danger</DangerButton>, keywords: ['danger', 'error', 'delete', 'warning', 'red'] , desc : "Used for destructive actions" },
       { name: 'Success Button', component: <SuccessButton>Success</SuccessButton>, keywords: ['success', 'confirm', 'done', 'green'] , desc : "Used for success actions"},
       { name: 'Icon Button', component: <IconButton aria-label="star">★</IconButton>, keywords: ['icon', 'star', 'symbol'] , desc : "Used for icons"},
-      { name: 'Glass Button', component: <GlassButton>Button</GlassButton>, keywords: ['glass', 'cta', 'action'] , desc : "Used for any action"}
-        { name: 'Rainbow Button', component: <RainbowButton>Rainbow</RainbowButton>, keywords: ['rainbow', 'action', 'colorful'] , desc : "Used for call to actions"}
+      { name: 'Glass Button', component: <GlassButton>Button</GlassButton>, keywords: ['glass', 'cta', 'action'] , desc : "Used for any action"},
+      { name: 'Rainbow Button', component: <RainbowButton>Rainbow</RainbowButton>, keywords: ['rainbow', 'action', 'colorful'] , desc : "Used for call to actions"}
     ],
     cards: [
       { name: 'Simple Card', component: <SimpleCard title="Simple Card" description="A minimal card with actions." />, keywords: ['simple', 'basic', 'minimal'] },
