@@ -50,6 +50,7 @@ import Checkbox from "./inputs/Checkbox";
 import Tabs from "./navigation/Tabs";
 import Breadcrumb from "./navigation/Breadcrumb";
 import Pagination from "./navigation/Pagination";
+import UserCard from "@/app/components/cards/UserCard";
 import RainbowButton from "@/app/components/buttons/RainbowButton";
 
 // form Input
@@ -63,6 +64,7 @@ export default function Page() {
   // Search and Filter State
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("all");
+
 
   // Analytics
   const { trackComponentView } = useAnalytics();
@@ -232,6 +234,29 @@ export default function Page() {
         ),
         keywords: ["checkbox", "check", "toggle", "boolean"],
       },
+
+      { name: 'Primary Button', component: <PrimaryButton>Primary</PrimaryButton>, keywords: ['primary', 'main', 'action', 'cta'], desc: "Used for Main Actions" },
+      { name: 'Secondary Button', component: <SecondaryButton>Secondary</SecondaryButton>, keywords: ['secondary', 'alternate'], desc: "Used for secondary Actions" },
+      { name: 'Ghost Button', component: <GhostButton>Ghost</GhostButton>, keywords: ['ghost', 'transparent', 'subtle'], desc: "Used for minimal actions" },
+      { name: 'Outline Button', component: <OutlineButton>Outline</OutlineButton>, keywords: ['outline', 'border', 'stroke'], desc: "Used for gives outline" },
+      { name: 'Danger Button', component: <DangerButton>Danger</DangerButton>, keywords: ['danger', 'error', 'delete', 'warning', 'red'], desc: "Used for destructive actions" },
+      { name: 'Success Button', component: <SuccessButton>Success</SuccessButton>, keywords: ['success', 'confirm', 'done', 'green'], desc: "Used for success actions" },
+      { name: 'Icon Button', component: <IconButton aria-label="star">★</IconButton>, keywords: ['icon', 'star', 'symbol'], desc: "Used for icons" },
+      { name: 'Rainbow Button', component: <RainbowButton>Rainbow</RainbowButton>, keywords: ['rainbow', 'action', 'colorful'], desc: "Used for call to actions" }
+    ],
+    cards: [
+      { name: 'Simple Card', component: <SimpleCard title="Simple Card" description="A minimal card with actions." />, keywords: ['simple', 'basic', 'minimal'] },
+      { name: 'Image Card', component: <ImageCard title="Image Card" description="Card with SVG image." />, keywords: ['image', 'picture', 'visual'] },
+      { name: 'Feature Card', component: <FeatureCard title="Feature Card" description="Highlight features and benefits." />, keywords: ['feature', 'highlight', 'benefit'] },
+      { name: 'Pricing Card', component: <PricingCard plan="Pro" price="$9/mo" features={["10 projects", "Priority support", "Unlimited users"]} />, keywords: ['pricing', 'plan', 'subscription', 'price'] },
+      { name: 'Data Card', component: <DataCard title="Active Projects" value="27" icon="📂" trend={8} />, keywords: ['data', 'stats', 'analytics', 'metrics'] },
+      { name: 'User Card', component: <UserCard avatar="https://i.pravatar.cc/150?img=3" name="Afonso Santos" email="afonso@example.com" role="Frontend Developer" onClick={() => alert('Card clicked!')}/>, keywords: ['user', 'profile', 'glass', 'avatar'] }
+    ],
+    inputs: [
+      { name: 'Text Input', component: <TextInput label="Sample Input" placeholder="Enter text" />, keywords: ['text', 'input', 'field', 'form'] },
+      { name: 'Select', component: <Select label="Sample Select" options={selectOptions} />, keywords: ['select', 'dropdown', 'options', 'choice'] },
+      { name: 'Checkbox', component: <Checkbox label="Sample Checkbox" description="Check this option" checked={false} onChange={() => { }} />, keywords: ['checkbox', 'check', 'toggle', 'boolean'] }
+
     ],
     navigation: [
       {
@@ -293,7 +318,7 @@ export default function Page() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-sky-50 via-indigo-50 to-pink-50 dark:from-[#1d1e26] dark:via-[#212936] dark:to-[#28243c] transition-colors duration-500">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-500">
       {/* <ThemeToggle theme={theme} setTheme={setTheme} /> */}
 
       {/* Glassmorphism Hero Header */}
@@ -384,11 +409,18 @@ export default function Page() {
               {filteredComponents.buttons.map((item, index) => (
                 <div
                   key={index}
+
                   className={`${
                     darkMode
                       ? "bg-gray-800 text-gray-200"
                       : "bg-gray-300 text-gray-900"
                   } shadow-md rounded-2xl p-5 flex flex-col items-center text-center border border-gray-100 hover:shadow-lg transition w-60`}
+
+                  className={`${darkMode
+                      ? "bg-gray-800 text-gray-200"
+                      : "bg-gray-300 text-gray-900"
+                    } shadow-md rounded-2xl p-5 flex flex-col items-center text-center border border-gray-100 hover:shadow-lg transition w-60`}
+
                 >
                   <div title={item.name} className="mb-3">
                     {item.component}
@@ -464,6 +496,9 @@ export default function Page() {
                     value={selectValue}
                     onChange={(e) => setSelectValue(e.target.value)}
                     required
+
+
+
                     className="text-gray-100 bg-gray-600 px-4 py-2"
                   />
                   <Checkbox
@@ -476,7 +511,7 @@ export default function Page() {
                     label="Disabled Option"
                     description="This option is disabled"
                     checked={false}
-                    onChange={() => {}}
+                    onChange={() => { }}
                     disabled
                   />
                 </>
@@ -574,6 +609,8 @@ export default function Page() {
             </div>
           </section>
         )}
+
+
       </div>
     </div>
   );
