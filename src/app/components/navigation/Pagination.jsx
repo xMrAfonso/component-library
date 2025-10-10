@@ -49,7 +49,7 @@ export default function Pagination({
         {/* Page Numbers */}
         {visiblePages.map((page) => (
           <button
-            key={page}
+            key={`page-${page}`}
             onClick={() => handlePageChange(page)}
             className={`
               px-3 py-2 text-sm font-medium border rounded-md transition-all duration-200
