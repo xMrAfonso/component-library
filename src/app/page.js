@@ -18,7 +18,7 @@ export default function HomePage() {
   // Track page view
   React.useEffect(() => {
     trackComponentView('HomePage');
-  }, []);
+  }, [trackComponentView]);
 
   const features = [
     {

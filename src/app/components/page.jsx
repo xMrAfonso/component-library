@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Search, X } from "lucide-react";
+import { Search, SparklesIcon, X } from "lucide-react";
 
 import { useAnalytics } from "../context/AnalyticsContext";
 import { useTheme } from "../context/ThemeContext";
@@ -55,6 +55,8 @@ import UserCard from "@/app/components/cards/UserCard";
 import RainbowButton from "@/app/components/buttons/RainbowButton";
 //Backgrounds
 import InteractiveTiles from "./backgrounds/InteractiveTiles";
+//Badge
+import { Badge, Chip } from "./Badge";
 
 // form Input
 
@@ -67,7 +69,6 @@ export default function Page() {
   // Search and Filter State
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("all");
-
 
   // Analytics
   const { trackComponentView } = useAnalytics();
@@ -245,7 +246,12 @@ export default function Page() {
       },
     ],
     backgrounds: [
-      { name: 'Interactive Tiles', component: <InteractiveTiles />, keywords: ['interactive', 'tiles', 'backgrounds', 'grid'], desc: 'Interactive tiles background' }
+      {
+        name: "Interactive Tiles",
+        component: <InteractiveTiles />,
+        keywords: ["interactive", "tiles", "backgrounds", "grid"],
+        desc: "Interactive tiles background",
+      },
     ],
     navigation: [
       {
@@ -264,6 +270,39 @@ export default function Page() {
           <Pagination currentPage={1} totalPages={5} maxVisiblePages={3} />
         ),
         keywords: ["pagination", "pages", "navigation", "paging"],
+      },
+    ],
+    badges: [
+      {
+        name: "Badge",
+        component: (
+          <div className="flex flex-wrap gap-2">
+            <Badge variant="primary">Primary</Badge>
+            <Badge variant="success" size="sm">Success</Badge>
+            <Badge variant="warning" size="lg">Warning</Badge>
+            <Badge variant="danger" pill>Danger</Badge>
+            <Badge variant="neutral" onClose={() => { }}>Closable</Badge>
+            <Badge variant="primary" icon={<SparklesIcon className="h-4 w-4" />}>With Icon</Badge>
+            <Badge variant="primary" count={5}>Notifications</Badge>
+          </div>
+        ),
+        keywords: ["badge", "tag", "label", "status", "indicator"],
+        desc: "Used for status indicators and labels",
+      },
+      {
+        name: "Chip",
+        component: (
+          <div className="flex flex-wrap gap-2">
+            <Chip variant="primary">Primary Chip</Chip>
+            <Chip variant="success">Success</Chip>
+            <Chip variant="warning">Warning</Chip>
+            <Chip variant="danger">Danger</Chip>
+            <Chip variant="neutral" onRemove={() => { }}>Closable</Chip>
+            <Chip variant="primary" icon={<SparklesIcon className="h-4 w-4" />}>With Icon</Chip>
+          </div>
+        ),
+        keywords: ["chip", "tag", "label", "filter", "category"],
+        desc: "Used for filters, categories, and removable tags",
       },
     ],
   };
@@ -353,6 +392,7 @@ export default function Page() {
                 <option value="cards">Cards</option>
                 <option value="inputs">Inputs</option>
                 <option value="navigation">Navigation</option>
+                <option value="badges">Badges</option>
               </select>
             </div>
           </div>
@@ -399,18 +439,10 @@ export default function Page() {
               {filteredComponents.buttons.map((item, index) => (
                 <div
                   key={index}
-
-                  className={`${
-                    darkMode
-                      ? "bg-gray-800 text-gray-200"
-                      : "bg-gray-300 text-gray-900"
-                  } shadow-md rounded-2xl p-5 flex flex-col items-center text-center border border-gray-100 hover:shadow-lg transition w-60`}
-
                   className={`${darkMode
                       ? "bg-gray-800 text-gray-200"
                       : "bg-gray-300 text-gray-900"
                     } shadow-md rounded-2xl p-5 flex flex-col items-center text-center border border-gray-100 hover:shadow-lg transition w-60`}
-
                 >
                   <div title={item.name} className="mb-3">
                     {item.component}
@@ -463,49 +495,46 @@ export default function Page() {
               {/* Show additional examples if all inputs are visible */}
               {filteredComponents.inputs.length ===
                 allComponents.inputs.length && (
-                <>
-                  <TextInput
-                    label="Email Address"
-                    placeholder="Enter your email"
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    helperText="We'll never share your email"
-                    required
-                    className="text-gray-100 bg-gray-600 px-4 py-2"
-                  />
-                  <TextInput
-                    label="Password"
-                    type="password"
-                    placeholder="Enter your password"
-                    error="Password must be at least 8 characters"
-                    className="text-gray-100 bg-gray-600 px-4 py-2"
-                  />
-                  <Select
-                    label="Choose an option"
-                    options={selectOptions}
-                    value={selectValue}
-                    onChange={(e) => setSelectValue(e.target.value)}
-                    required
-
-
-
-                    className="text-gray-100 bg-gray-600 px-4 py-2"
-                  />
-                  <Checkbox
-                    label="Terms and Conditions"
-                    description="I agree to the terms and conditions"
-                    checked={checkboxValue}
-                    onChange={(e) => setCheckboxValue(e.target.checked)}
-                  />
-                  <Checkbox
-                    label="Disabled Option"
-                    description="This option is disabled"
-                    checked={false}
-                    onChange={() => { }}
-                    disabled
-                  />
-                </>
-              )}
+                  <>
+                    <TextInput
+                      label="Email Address"
+                      placeholder="Enter your email"
+                      value={inputValue}
+                      onChange={(e) => setInputValue(e.target.value)}
+                      helperText="We'll never share your email"
+                      required
+                      className="text-gray-100 bg-gray-600 px-4 py-2"
+                    />
+                    <TextInput
+                      label="Password"
+                      type="password"
+                      placeholder="Enter your password"
+                      error="Password must be at least 8 characters"
+                      className="text-gray-100 bg-gray-600 px-4 py-2"
+                    />
+                    <Select
+                      label="Choose an option"
+                      options={selectOptions}
+                      value={selectValue}
+                      onChange={(e) => setSelectValue(e.target.value)}
+                      required
+                      className="text-gray-100 bg-gray-600 px-4 py-2"
+                    />
+                    <Checkbox
+                      label="Terms and Conditions"
+                      description="I agree to the terms and conditions"
+                      checked={checkboxValue}
+                      onChange={(e) => setCheckboxValue(e.target.checked)}
+                    />
+                    <Checkbox
+                      label="Disabled Option"
+                      description="This option is disabled"
+                      checked={false}
+                      onChange={() => { }}
+                      disabled
+                    />
+                  </>
+                )}
             </div>
           </section>
         )}
@@ -522,8 +551,12 @@ export default function Page() {
             </h2>
             <div className="max-w-3xl">
               {filteredComponents.backgrounds.map((item, index) => (
-                  <div key={index} title={item.name} className="mb-6">
-                    {item.desc && <p className="mb-2 font-bold text-sm text-gray-600 dark:text-gray-300">{item.desc}</p>}
+                <div key={index} title={item.name} className="mb-6">
+                  {item.desc && (
+                    <p className="mb-2 font-bold text-sm text-gray-600 dark:text-gray-300">
+                      {item.desc}
+                    </p>
+                  )}
                   {item.component}
                 </div>
               ))}
@@ -621,6 +654,29 @@ export default function Page() {
           </section>
         )}
 
+        {/* Badges Section */}
+        {filteredComponents.badges && (
+          <section
+            id="badges"
+            className="bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 dark:from-[#0f1b1a] dark:via-[#0a1a1a] dark:to-[#0a1a1a] border border-emerald-100 dark:border-emerald-900 shadow-xl rounded-2xl p-10"
+          >
+            <h2 className="relative text-2xl font-semibold mb-6 flex items-center justify-center gap-2 text-emerald-600 dark:text-emerald-200">
+              <span>Badge Components ({filteredComponents.badges.length})</span>
+              <span className="absolute top-10 h-1 w-full bg-gradient-to-r from-emerald-300 to-cyan-300 rounded-full block" />
+            </h2>
+            <div className="space-y-8">
+              {filteredComponents.badges.map((item, index) => (
+                <div key={index}>
+                  <h3 className="text-lg font-medium mb-3">{item.name}</h3>
+                  <div title={item.name}>{item.component}</div>
+                  {item.desc && (
+                    <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">{item.desc}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
       </div>
     </div>
